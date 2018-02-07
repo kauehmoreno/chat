@@ -19,7 +19,9 @@ export default class ChannelForm extends Component{
     render(){
         return(
             <form onSubmit={this.onSubmit}>
-                <input type='text' ref='channel' />
+                <div className='form-group'>
+                    <input className='form-control' placeholder='Adicione um Canal' type='text' ref='channel' />
+                </div>
             </form>
         )
     }
