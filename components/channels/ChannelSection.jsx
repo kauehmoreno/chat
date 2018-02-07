@@ -7,9 +7,14 @@ export default class ChannelSection extends Component {
     
     render(){
         return(
-            <div>
-                <ChannelList {...this.props} />
-                <ChannelForm {...this.props} />
+            <div className='support panel panel-primary'>
+                <div className='panel-heading'>
+                    <strong>Canais</strong>
+                </div>
+                <div className='panel-body channels'>
+                    <ChannelList {...this.props} />
+                    <ChannelForm {...this.props} />
+                </div>
             </div>
         )
     }
@@ -18,5 +23,6 @@ export default class ChannelSection extends Component {
 ChannelSection.PropTypes = {
     channels: PropTypes.array.isRequired,
     setChannel: PropTypes.func.isRequired,
-    addChannel: PropTypes.func.isRequired
+    addChannel: PropTypes.func.isRequired,
+    activeChannel: PropTypes.object.isRequired
 }
