@@ -18403,6 +18403,12 @@ module.exports = camelize;
 "use strict";
 
 
+Object.defineProperty(exports, '__esModule', {
+    value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -18456,16 +18462,26 @@ var App = (function (_Component) {
     }, {
         key: 'render',
         value: function render() {
-            return _react2['default'].createElement(_channelsChannelSectionJsx2['default'], {
-                channels: this.state.channels,
-                addChannel: this.addChannel,
-                setChannel: this.setChannel
-            });
+            return _react2['default'].createElement(
+                'div',
+                { className: 'app' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'nav' },
+                    _react2['default'].createElement(_channelsChannelSectionJsx2['default'], _extends({}, this.state, {
+                        addChannel: this.addChannel,
+                        setChannel: this.setChannel
+                    }))
+                )
+            );
         }
     }]);
 
     return App;
 })(_react.Component);
+
+exports['default'] = App;
+module.exports = exports['default'];
 
 /***/ }),
 /* 30 */
@@ -18492,8 +18508,6 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-// import PropTypes from "prop-types";
-
 var _ChannelFormJsx = __webpack_require__(31);
 
 var _ChannelFormJsx2 = _interopRequireDefault(_ChannelFormJsx);
@@ -18509,11 +18523,10 @@ var _propTypes2 = _interopRequireDefault(_propTypes);
 var ChannelSection = (function (_Component) {
     _inherits(ChannelSection, _Component);
 
-    function ChannelSection(props) {
+    function ChannelSection() {
         _classCallCheck(this, ChannelSection);
 
-        _get(Object.getPrototypeOf(ChannelSection.prototype), 'constructor', this).call(this, props);
-        this.onSubmit = this.onSubmit.bind(this);
+        _get(Object.getPrototypeOf(ChannelSection.prototype), 'constructor', this).apply(this, arguments);
     }
 
     _createClass(ChannelSection, [{
@@ -18521,9 +18534,22 @@ var ChannelSection = (function (_Component) {
         value: function render() {
             return _react2['default'].createElement(
                 'div',
-                null,
-                _react2['default'].createElement(_ChannelListJsx2['default'], this.props),
-                _react2['default'].createElement(_ChannelFormJsx2['default'], this.props)
+                { className: 'support panel panel-primary' },
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'panel-heading' },
+                    _react2['default'].createElement(
+                        'strong',
+                        null,
+                        'Canais'
+                    )
+                ),
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'panel-body channels' },
+                    _react2['default'].createElement(_ChannelListJsx2['default'], this.props),
+                    _react2['default'].createElement(_ChannelFormJsx2['default'], this.props)
+                )
             );
         }
     }]);
@@ -18531,13 +18557,14 @@ var ChannelSection = (function (_Component) {
     return ChannelSection;
 })(_react.Component);
 
+exports['default'] = ChannelSection;
+
 ChannelSection.PropTypes = {
     channels: _propTypes2['default'].array.isRequired,
     setChannel: _propTypes2['default'].func.isRequired,
-    addChannel: _propTypes2['default'].func.isRequired
+    addChannel: _propTypes2['default'].func.isRequired,
+    activeChannel: _propTypes2['default'].object.isRequired
 };
-
-exports['default'] = ChannelSection;
 module.exports = exports['default'];
 
 /***/ }),
@@ -18585,7 +18612,7 @@ var ChannelForm = (function (_Component) {
             e.preventDefault();
             var node = this.refs.channel;
             var chanName = node.value;
-            this.props.addChanel(chanName);
+            this.props.addChannel(chanName);
             node.value = '';
         }
     }, {
@@ -18594,7 +18621,11 @@ var ChannelForm = (function (_Component) {
             return _react2['default'].createElement(
                 'form',
                 { onSubmit: this.onSubmit },
-                _react2['default'].createElement('input', { type: 'text', ref: 'channel' })
+                _react2['default'].createElement(
+                    'div',
+                    { className: 'form-group' },
+                    _react2['default'].createElement('input', { className: 'form-control', placeholder: 'Adicione um Canal', type: 'text', ref: 'channel' })
+                )
             );
         }
     }]);
@@ -18602,11 +18633,11 @@ var ChannelForm = (function (_Component) {
     return ChannelForm;
 })(_react.Component);
 
-ChannelForm.PropTypes = {
-    addChanel: _propTypes2['default'].func.isRequired
-};
-
 exports['default'] = ChannelForm;
+
+ChannelForm.PropTypes = {
+    addChannel: _propTypes2['default'].func.isRequired
+};
 module.exports = exports['default'];
 
 /***/ }),
@@ -19372,9 +19403,11 @@ var ChannelList = (function (_Component) {
                 'ul',
                 null,
                 this.props.channels.map(function (chan) {
-                    _react2['default'].createElement(_ChannelJsx2['default'], {
+                    return _react2['default'].createElement(_ChannelJsx2['default'], {
+                        key: chan.id,
                         channel: chan,
-                        setChannel: _this.props.setChannel
+                        setChannel: _this.props.setChannel,
+                        activeChannel: _this.props.activeChannel
                     });
                 })
             );
@@ -19384,12 +19417,13 @@ var ChannelList = (function (_Component) {
     return ChannelList;
 })(_react.Component);
 
+exports['default'] = ChannelList;
+
 ChannelList.PropTypes = {
     channels: _propTypes2['default'].array.isRequired,
-    setChannel: _propTypes2['default'].func.isRequired
+    setChannel: _propTypes2['default'].func.isRequired,
+    activeChannel: _propTypes2['default'].object.isRequired
 };
-
-exports['default'] = ChannelList;
 module.exports = exports['default'];
 
 /***/ }),
@@ -19399,19 +19433,19 @@ module.exports = exports['default'];
 "use strict";
 
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
     value: true
 });
 
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ("value" in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var _react = __webpack_require__(1);
 
@@ -19427,12 +19461,12 @@ var Channel = (function (_Component) {
     function Channel(props) {
         _classCallCheck(this, Channel);
 
-        _get(Object.getPrototypeOf(Channel.prototype), "constructor", this).call(this, props);
+        _get(Object.getPrototypeOf(Channel.prototype), 'constructor', this).call(this, props);
         this.onClick = this.onClick.bind(this);
     }
 
     _createClass(Channel, [{
-        key: "onClick",
+        key: 'onClick',
         value: function onClick(e) {
             e.preventDefault();
             var _props = this.props;
@@ -19442,17 +19476,22 @@ var Channel = (function (_Component) {
             setChannel(channel);
         }
     }, {
-        key: "render",
+        key: 'render',
         value: function render() {
-            var channel = this.props.channel;
+            var _props2 = this.props;
+            var channel = _props2.channel;
+            var activeChannel = _props2.activeChannel;
 
-            return _react2["default"].createElement(
-                "li",
-                null,
-                _react2["default"].createElement(
-                    "a",
+            var active = channel === activeChannel ? 'active' : '';
+
+            console.log(channel);
+            return _react2['default'].createElement(
+                'li',
+                { className: active },
+                _react2['default'].createElement(
+                    'a',
                     { onClick: this.onClick },
-                    channel.name
+                    channel.chaName
                 )
             );
         }
@@ -19461,13 +19500,14 @@ var Channel = (function (_Component) {
     return Channel;
 })(_react.Component);
 
-Channel.PropTypes = {
-    channel: _propTypes2["default"].object.isRequired,
-    setChannel: _propTypes2["default"].func.isRequired
-};
+exports['default'] = Channel;
 
-exports["default"] = Channel;
-module.exports = exports["default"];
+Channel.PropTypes = {
+    channel: _propTypes2['default'].object.isRequired,
+    setChannel: _propTypes2['default'].func.isRequired,
+    activeChannel: _propTypes2['default'].object.isRequired
+};
+module.exports = exports['default'];
 
 /***/ })
 /******/ ]);
