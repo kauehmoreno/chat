@@ -22,18 +22,22 @@ export default class App extends Component {
         // TODO send to server
     }
 
-    setChannel(activeChan){
-        this.setState({activeChan});
+    setChannel(activeChannel){
+        this.setState({activeChannel});
         // TODO: get channels message
     }
 
     render() {
         return (
-            <ChannelSection 
-                channels={this.state.channels}
-                addChannel={this.addChannel}
-                setChannel={this.setChannel}
-            />
+            <div className='app'>
+                <div className='nav'>
+                    <ChannelSection 
+                        {...this.state}
+                        addChannel={this.addChannel}
+                        setChannel={this.setChannel}
+                    />
+                </div>
+            </div>
         )
     }
 }
