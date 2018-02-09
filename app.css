@@ -26,6 +26,12 @@
   .channels, .users{
     height: 88%;
   }
+
+  .panel-heading {
+    background-color:#333 !important;
+    border-color:#333
+  }
+
   .messages{
     height: 94%;
   }
@@ -63,4 +69,8 @@
   }
   a{
     cursor: pointer;
+  }
+
+  .channel-name{
+    color: #E8E8E8
   }
