@@ -7,11 +7,10 @@ export default class MessageSection extends Component {
 
     render() { 
         let {activeChannel} = this.props;
-        console.log(this.props);
         return (  
             <div className='messages-container panel panel-default'>
                 <div className='panel-heading'>
-                    <strong>{activeChannel !== undefined ? activeChannel.chanName : 'Canal não definido'}</strong>
+                    <strong>{activeChannel.name || 'Escolha um Canal'}</strong>
                 </div>
                 <div className='panel-body messages'>
                     <MessageList {...this.props} />
