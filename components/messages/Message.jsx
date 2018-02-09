@@ -4,16 +4,11 @@ import fecha from 'fecha';
 
 
 export default class Message extends Component {
-
-    constructor(props){
-        super(props);
-    }
-    
     render(){
         let {message} = this.props;
-        let createdAt = fecha.format(message.createdAt, 'HH:mm:ss MM/DD')
+        let createdAt = fecha.format(new Date(message.createdAt), 'HH:mm:ss MM/DD/YY')
         return(
-            <li>
+            <li className='message'>
                 <div className='author'>
                     <strong>{message.author}</strong>
                     <i className='timestamp'>{createdAt} </i>
