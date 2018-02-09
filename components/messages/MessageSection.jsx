@@ -10,7 +10,7 @@ export default class MessageSection extends Component {
         return (  
             <div className='messages-container panel panel-default'>
                 <div className='panel-heading'>
-                    <strong>{activeChannel.name || 'Escolha um Canal'}</strong>
+                    <strong className='channel-name'>{activeChannel.name || 'Escolha um Canal'}</strong>
                 </div>
                 <div className='panel-body messages'>
                     <MessageList {...this.props} />
