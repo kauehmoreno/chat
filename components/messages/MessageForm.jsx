@@ -20,16 +20,14 @@ export default class MessageForm extends Component {
 
     render() { 
         let input;
-        if(this.props.activeChannel !== undefined){
-            if(this.props.activeChannel.id !== undefined){
-                input = (
-                    <input
-                    ref='message'
-                    type='text'
-                    className='form-control'
-                    placeholder='Escreva uma mensagem...' />
-                )   
-            }
+        if(this.props.activeChannel.id !== undefined){
+            input = (
+                <input
+                ref='message'
+                type='text'
+                className='form-control'
+                placeholder='Escreva uma mensagem...' />
+            )   
         }
         return (  
             <form onSubmit={this.onSubmit}>
