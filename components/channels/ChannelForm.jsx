@@ -11,8 +11,8 @@ export default class ChannelForm extends Component{
     onSubmit(e){
         e.preventDefault();
         const node = this.refs.channel;
-        const chanName = node.value;
-        this.props.addChannel(chanName);
+        const name = node.value;
+        this.props.addChannel(name);
         node.value = '';
     }
 
