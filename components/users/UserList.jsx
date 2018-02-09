@@ -5,7 +5,6 @@ import User from './User.jsx';
 export default class UserList extends Component{
 
     render(){
-        console.log(this.props);
         return(
             <ul>{
                this.props.users.map(user => {

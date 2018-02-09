@@ -11,9 +11,7 @@ export default class UserForm extends Component {
     onSubmit(event){
         event.preventDefault();
         const node = this.refs.userName;
-        console.log(this.refs);
         const userName = node.value;
-        console.log(userName);
         this.props.setUserName(userName);
         node.value = '';
     }
